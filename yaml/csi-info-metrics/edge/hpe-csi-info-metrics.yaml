@@ -65,7 +65,7 @@ spec:
       serviceAccount: hpe-csi-info-metrics-serviceaccount
       containers:
         - name: csi-info-metrics
-          image: quay.io/hpestorage/csi-info-metrics:v1.0.1
+          image: quay.io/datamattsson/csi-info-metrics:v0.0.0
           ports:
           - containerPort: 9099
           args:

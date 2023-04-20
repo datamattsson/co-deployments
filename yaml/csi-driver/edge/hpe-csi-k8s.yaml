@@ -1,5 +1,5 @@
 # Configuration to deploy the HPE CSI driver compatible with
-# Kubernetes = v1.25
+# Kubernetes = v1.x
 #
 # example usage: kubectl create -f <this_file>
 
@@ -129,7 +129,7 @@ spec:
           env:
             - name: ADDRESS
               value: /var/lib/csi/sockets/pluginproxy/csi.sock
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
           volumeMounts:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
@@ -141,7 +141,7 @@ spec:
           env:
             - name: ADDRESS
               value: /var/lib/csi/sockets/pluginproxy/csi.sock
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
           volumeMounts:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
@@ -153,7 +153,7 @@ spec:
           env:
             - name: ADDRESS
               value: /var/lib/csi/sockets/pluginproxy/csi.sock
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
           volumeMounts:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
@@ -165,12 +165,12 @@ spec:
           env:
             - name: ADDRESS
               value: /var/lib/csi/sockets/pluginproxy/csi.sock
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
           volumeMounts:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
         - name: hpe-csi-driver
-          image: quay.io/hpestorage/csi-driver:v2.3.0
+          image: quay.io/datamattsson/csi-driver:v0.0.0
           args :
             - "--endpoint=$(CSI_ENDPOINT)"
             - "--flavor=kubernetes"
@@ -181,7 +181,7 @@ spec:
               value: unix:///var/lib/csi/sockets/pluginproxy/csi.sock
             - name: LOG_LEVEL
               value: trace
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
           volumeMounts:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
@@ -194,43 +194,43 @@ spec:
             - name: root-dir
               mountPath: /host
         - name: csi-volume-mutator
-          image: quay.io/hpestorage/volume-mutator:v1.3.3
+          image: quay.io/datamattsson/volume-mutator:v0.0.0
           args:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"
           env:
             - name: ADDRESS
               value: /var/lib/csi/sockets/pluginproxy/csi-extensions.sock
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
           volumeMounts:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
         - name: csi-volume-group-snapshotter
-          image: quay.io/hpestorage/volume-group-snapshotter:v1.0.3
+          image: quay.io/datamattsson/volume-group-snapshotter:v0.0.0
           args:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"
           env:
             - name: ADDRESS
               value: /var/lib/csi/sockets/pluginproxy/csi-extensions.sock
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
           volumeMounts:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
         - name: csi-volume-group-provisioner
-          image: quay.io/hpestorage/volume-group-provisioner:v1.0.3
+          image: quay.io/datamattsson/volume-group-provisioner:v0.0.0
           args:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"
           env:
             - name: ADDRESS
               value: /var/lib/csi/sockets/pluginproxy/csi-extensions.sock
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
           volumeMounts:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
         - name: csi-extensions
-          image: quay.io/hpestorage/csi-extensions:v1.2.4
+          image: quay.io/datamattsson/csi-extensions:v0.0.0
           args:
             - "--v=5"
             - "--endpoint=$(CSI_ENDPOINT)"
@@ -239,7 +239,7 @@ spec:
               value: unix:///var/lib/csi/sockets/pluginproxy/csi-extensions.sock
             - name: LOG_LEVEL
               value: trace
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
           volumeMounts:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
@@ -820,7 +820,7 @@ spec:
             - name: registration-dir
               mountPath: /registration
         - name: hpe-csi-driver
-          image: quay.io/hpestorage/csi-driver:v2.3.0
+          image: quay.io/datamattsson/csi-driver:v0.0.0
           args :
             - "--endpoint=$(CSI_ENDPOINT)"
             - "--node-service"
@@ -840,7 +840,7 @@ spec:
               value: ""
             - name: DISABLE_NODE_CONFORMANCE
               value: "false"
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
           securityContext:
             privileged: true
             capabilities:
