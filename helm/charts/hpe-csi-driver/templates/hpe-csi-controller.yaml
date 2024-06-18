@@ -118,8 +118,10 @@ spec:
               mountPath: /var/log
             - name: k8s
               mountPath: /etc/kubernetes
+            {{ if .Values.disableNodeConfiguration -}}
             - name: hpeconfig
               mountPath: /etc/hpe-storage
+            {{- end }}
             - name: root-dir
               mountPath: /host
         - name: csi-volume-mutator
@@ -189,9 +191,11 @@ spec:
         - name: k8s
           hostPath:
             path: /etc/kubernetes
+        {{ if .Values.disableNodeConfiguration -}}
         - name: hpeconfig
           hostPath:
             path: /etc/hpe-storage
+        {{- end }}
         - name: root-dir
           hostPath:
             path: /

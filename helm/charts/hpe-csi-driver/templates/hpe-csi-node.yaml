@@ -47,8 +47,10 @@ spec:
               mountPath: /dev
             - name: sys
               mountPath: /sys
+            {{ if .Values.disableNodeConfiguration -}}
             - name: etc-hpe-storage-dir
               mountPath: /etc/hpe-storage
+            {{- end }}
             - name: runsystemd
               mountPath: /run/systemd
             - name: etcsystemd
@@ -157,8 +159,10 @@ spec:
               mountPath: /dev
             - name: log-dir
               mountPath: /var/log
+            {{ if .Values.disableNodeConfiguration -}}
             - name: etc-hpe-storage-dir
               mountPath: /etc/hpe-storage
+            {{- end }}
             - name: etc-kubernetes
               mountPath: /etc/kubernetes
             - name: sys
@@ -167,9 +171,11 @@ spec:
               mountPath: /run/systemd
             - name: etcsystemd
               mountPath: /etc/systemd/system
+            {{ if .Values.disableNodeConfiguration -}}
             - name: linux-config-file
               mountPath: /opt/hpe-storage/nimbletune/config.json
               subPath: config.json
+            {{- end }}
       volumes:
         - name: registration-dir
           hostPath:
@@ -203,9 +209,11 @@ spec:
         - name: log-dir
           hostPath:
             path: /var/log
+        {{ if .Values.disableNodeConfiguration -}}
         - name: etc-hpe-storage-dir
           hostPath:
             path: /etc/hpe-storage
+        {{- end }}
         - name: etc-kubernetes
           hostPath:
             path: /etc/kubernetes
