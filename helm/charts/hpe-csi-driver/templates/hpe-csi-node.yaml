@@ -47,7 +47,7 @@ spec:
               mountPath: /dev
             - name: sys
               mountPath: /sys
-            {{ if .Values.disableNodeConfiguration -}}
+            {{ if not .Values.disableNodeConfiguration -}}
             - name: etc-hpe-storage-dir
               mountPath: /etc/hpe-storage
             {{- end }}
@@ -159,7 +159,7 @@ spec:
               mountPath: /dev
             - name: log-dir
               mountPath: /var/log
-            {{ if .Values.disableNodeConfiguration -}}
+            {{ if not .Values.disableNodeConfiguration -}}
             - name: etc-hpe-storage-dir
               mountPath: /etc/hpe-storage
             {{- end }}
@@ -171,7 +171,7 @@ spec:
               mountPath: /run/systemd
             - name: etcsystemd
               mountPath: /etc/systemd/system
-            {{ if .Values.disableNodeConfiguration -}}
+            {{ if not .Values.disableNodeConfiguration -}}
             - name: linux-config-file
               mountPath: /opt/hpe-storage/nimbletune/config.json
               subPath: config.json
@@ -209,7 +209,7 @@ spec:
         - name: log-dir
           hostPath:
             path: /var/log
-        {{ if .Values.disableNodeConfiguration -}}
+        {{ if not .Values.disableNodeConfiguration -}}
         - name: etc-hpe-storage-dir
           hostPath:
             path: /etc/hpe-storage
