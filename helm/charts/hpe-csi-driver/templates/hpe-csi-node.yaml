@@ -50,11 +50,11 @@ spec:
             {{ if not .Values.disableNodeConfiguration -}}
             - name: etc-hpe-storage-dir
               mountPath: /etc/hpe-storage
+            - name: etcsystemd
+              mountPath: /etc/systemd/system
             {{- end }}
             - name: runsystemd
               mountPath: /run/systemd
-            - name: etcsystemd
-              mountPath: /etc/systemd/system
             - name: plugin-dir
               mountPath: /csi
             - name: pods-mount-dir
@@ -159,19 +159,17 @@ spec:
               mountPath: /dev
             - name: log-dir
               mountPath: /var/log
-            {{ if not .Values.disableNodeConfiguration -}}
-            - name: etc-hpe-storage-dir
-              mountPath: /etc/hpe-storage
-            {{- end }}
             - name: etc-kubernetes
               mountPath: /etc/kubernetes
             - name: sys
               mountPath: /sys
             - name: runsystemd
               mountPath: /run/systemd
+            {{ if not .Values.disableNodeConfiguration -}}
+            - name: etc-hpe-storage-dir
+              mountPath: /etc/hpe-storage
             - name: etcsystemd
               mountPath: /etc/systemd/system
-            {{ if not .Values.disableNodeConfiguration -}}
             - name: linux-config-file
               mountPath: /opt/hpe-storage/nimbletune/config.json
               subPath: config.json
@@ -213,6 +211,9 @@ spec:
         - name: etc-hpe-storage-dir
           hostPath:
             path: /etc/hpe-storage
+        - name: etcsystemd
+          hostPath:
+            path: /etc/systemd/system
         {{- end }}
         - name: etc-kubernetes
           hostPath:
@@ -220,9 +221,6 @@ spec:
         - name: runsystemd
           hostPath:
             path: /run/systemd
-        - name: etcsystemd
-          hostPath:
-            path: /etc/systemd/system
         - name: sys
           hostPath:
             path: /sys
