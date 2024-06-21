@@ -1,6 +1,6 @@
 apiVersion: v1
-version: "2.5.0-talos3"
-appVersion: "2.5.0-talos3"
+version: "2.5.0-talos4"
+appVersion: "2.5.0-talos4"
 annotations:
   artifacthub.io/prerelease: "true"
   artifacthub.io/containsSecurityUpdates: "true"
